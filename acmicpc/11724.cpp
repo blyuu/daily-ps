@@ -8,6 +8,30 @@ void dfs(vector<vector<int>>& neighbors, vector<bool>& visited, int start)
 {
     visited[start] = true;
 
+    for(int val : neighbors[start])
+    {
+        if(!visited[val])
+        {
+            dfs(neighbors, visited, val);
+        }
+    }
+
+}
+
+int counter(vector<vector<int>>& neighbor, vector<bool>& visited, int node)
+{
+    int count = 0;
+    for(int i = 1; i<=node; i++)
+    {
+        if(!visited[i])
+        {
+            dfs(neighbor,visited, i);
+            count++;
+        }
+        
+        
+    }
+    return count;
 }
 
 int main()
@@ -16,7 +40,7 @@ int main()
 
     cin >> N >> M;
 
-    vector<vector<int>> neighbors;
+    vector<vector<int>> neighbors(N+1);
 
     vector<bool> visited (N+1, false);
 
@@ -29,5 +53,10 @@ int main()
         neighbors[b].push_back(a);
     }
 
+    int result = counter(neighbors,visited,N);
+
+    cout << result;
+
+    return 0;
 
 }
